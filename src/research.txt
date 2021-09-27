@@ -1,1 +1,0 @@
-python ui for driving servos: https://github.com/maximkulkin/lewansoul-lx16a

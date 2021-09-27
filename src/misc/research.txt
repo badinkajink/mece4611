@@ -1,0 +1,3 @@
+python ui for driving servos: https://github.com/maximkulkin/lewansoul-lx16a
+bracket dimensions: https://www.hiwonder.hk/products/hiwonder-servo-bracket-compatible-with-lx-15d-bus-servo
+    - shaft mounting bracket has 8-hole pattern on a 14mm circle
