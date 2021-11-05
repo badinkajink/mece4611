@@ -1,7 +1,0 @@
-prusaslicer
-i3 mk3
-print settings
---> contact z distance: 0.15mm
---> interface layers 3 layers
-
-0.20 mm quality @mk3
