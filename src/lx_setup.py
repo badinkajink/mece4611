@@ -5,7 +5,7 @@ from math import sin, cos
 import matplotlib.pyplot as plt
 
 # SERIAL_PORT = '/dev/ttyUSB0'
-SERIAL_PORT = 'COM4'
+SERIAL_PORT = 'COM3'
 
 ser = serial.Serial(SERIAL_PORT, 115200, timeout=1)
 if not ser.isOpen():

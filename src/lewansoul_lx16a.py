@@ -7,8 +7,8 @@ __all__ = [
     'SERVO_ERROR_LOCKED_ROTOR',
 ]
 
-
 from serial.serialutil import Timeout
+# from serial.serialutil import Timeout
 from functools import partial
 import threading
 import logging
