@@ -46,16 +46,35 @@ pos_10 = [(flj2, flj2.lower), (frj2, frj2.lower)]
 pos_11 = [(flj1, flj1.home), (frj1, frj1.home)]
 # cycle back to pos_1
 
+
+
 def home():
     for i in m_servos:
         ctrl.move(i.motor_id, i.home, 2000)
 
-def move_servos(moves, time=500, by_id=False):
+def move_servos(moves, time=75, by_id=False):
     for i in moves:
+        motor = i[0]
         if by_id:
-            ctrl.move(i[0], i[1], time)
+            if motor > 8 or motor < 1:
+                print("Enter a motor id between 1 and 8")
+                return
+            id = i[0]
+            motor = m_servos[id - 1]
+
+        if isinstance(i[1], str):
+            key = i[1]
+            if key not in ("h", "u", "l"):
+                print("Usage: 'h' - home, 'u' - upper, 'l' - lower")
+                return
+            if key == "h":
+                ctrl.move(motor.motor_id, motor.home, time)
+            elif key == "u":
+                ctrl.move(motor.motor_id, motor.upper, time)
+            elif key == "l":
+                ctrl.move(motor.motor_id, motor.lower, time)
         else:
-            ctrl.move(i[0].motor_id, i[1], time)
+            ctrl.move(motor.motor_id, i[1], time)
 
 def crawl():
     move_servos(pos_1, 500)
@@ -107,12 +126,35 @@ def get_servo_telem():
         print("Servo id: {}".format(id))
         print("Position: {}".format(ctrl.get_position(id)))
 
+def seq_1():
+    sequence = [
+        [(1, 627), (2, 640), (3, 461), (4, 559), (5, 637), (6, 412), (7, 637), (8, 743)],
+        [(1, 628), (2, 635), (3, 461), (4, 559), (5, 619), (6, 407), (7, 635), (8, "l")],
+        [(1, 628), (2, 635), (3, 461), (4, "h"), (5, 619), (6, 407), (7, 635), (8, 436)],
+        [(1, 628), (2, 632), (3, 461), (4, 699), (5, 610), (6, 399), (7, "h"), (8, 440)],
+        [(1, 630), (2, 629), (3, "h"), (4, 704), (5, 606), (6, 401), (7, 490), (8, 440)],
+        [(1, 354), (2, 633), (3, 603), (4, 704), (5, 605), (6, 401), (7, 434), (8, 439)],
+        [(1, 354), (2, 634), (3, 603), (4, 704), (5, "h"), (6, 402), (7, 434), (8, 439)],
+        [(1, "u"), (2, 632), (3, 603), (4, 704), (5, 485), (6, 402), (7, 434), (8, 439)],
+        [(1, 625), (2, 634), (3, 600), (4, 695), (5, 490), (6, 254), (7, 434), (8, 438)],
+        [(1, 627), (2, 635), (3, "u"), (4, 704), (5, 481), (6, 402), (7, 434), (8, 440)],
+        [(1, 627), (2, 634), (3, 602), (4, "u"), (5, 484), (6, 402), (7, 434), (8, 438)],
+        [(1, 625), (2, 637), (3, "u"), (4, 558), (5, 484), (6, 401), (7, 439), (8, 433)],
+        [(1, 629), (2, 637), (3, 458), (4, 558), (5, "l"), (6, 252), (7, 439), (8, 433)],
+        [(1, 630), (2, 637), (3, 458), (4, 558), (5, 629), (6, 253), (7, "u"), (8, 447)],
+        [(1, 626), (2, 634), (3, 457), (4, 555), (5, 627), (6, 409), (7, 636), (8, 453)]
+    ]
+
+    for pos in sequence:
+        move_servos(pos, by_id=True)
+        time.sleep(0.075)
+
 # util function to extract moves
 def get_move_from_pos():
     move = []
     for i in m_servos:
         id = i.motor_id
-        move.append((i.name, ctrl.get_position(id)))
+        move.append((id, ctrl.get_position(id)))
     return move
 
 if __name__ == "__main__":
@@ -122,9 +164,7 @@ if __name__ == "__main__":
     # time.sleep(2.0)
     # move_servos(pos1, 500)
     # get_servo_telem()
-    # move = str(get_move_from_pos())
-    # print(move)
-    # crawl()
-    # double_stomp()
-    crawl_2()
-    # home()
+    # print(get_move_from_pos())
+    # pos = [(1, 630), (2, 640), (3, 462), (4, 557), (5, 637), (6, 412), (7, 637), (8, 473)]
+    # move_servos(pos, by_id=True)
+    seq_1()
