@@ -126,7 +126,7 @@ def get_servo_telem():
         print("Servo id: {}".format(id))
         print("Position: {}".format(ctrl.get_position(id)))
 
-def seq_1():
+def breakdance():
     sequence = [
         [(1, 627), (2, 640), (3, 461), (4, 559), (5, 637), (6, 412), (7, 637), (8, 743)],
         [(1, 628), (2, 635), (3, 461), (4, 559), (5, 619), (6, 407), (7, 635), (8, "l")],
@@ -167,4 +167,4 @@ if __name__ == "__main__":
     # print(get_move_from_pos())
     # pos = [(1, 630), (2, 640), (3, 462), (4, 557), (5, 637), (6, 412), (7, 637), (8, 473)]
     # move_servos(pos, by_id=True)
-    seq_1()
+    breakdance()
